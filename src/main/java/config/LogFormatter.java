@@ -71,7 +71,7 @@ public class LogFormatter extends Formatter {
 
     private String setHeaderByLogType(LogRecord record) {
         return switch (record.getLevel().getName()) {
-            case "INFO" -> "INFORMATION";
+            case "INFO" -> "QUESTION";
             case "WARNING" -> "PROCESS";
             case "SEVERE" -> "IMPORTANT";
             default -> ANSI_RESET;
