@@ -9,7 +9,7 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DemandRepository {
-    public List<Demand> getDemands() {
+    public static List<Demand> getDemands() {
         try (var session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("SELECT demand FROM Demand demand", Demand.class).list();
         }
