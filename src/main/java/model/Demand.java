@@ -25,8 +25,8 @@ public class Demand {
     private String route;
 
     @Column(name = "id_vehicle")
-    private int vehicleId;
+    private Integer vehicleId;
 
     @Column(name = "id_customer")
-    private int customerId;
+    private Integer customerId;
 }
