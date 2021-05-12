@@ -3,15 +3,15 @@ package repository;
 import config.HibernateUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import model.Customer;
+import model.Demand;
 
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CustomerRepository {
-    public List<Customer> getCustomers() {
+public class DemandRepository {
+    public List<Demand> getDemands() {
         try (var session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("SELECT customer FROM Customer customer", Customer.class).list();
+            return session.createQuery("SELECT demand FROM Demand demand", Demand.class).list();
         }
     }
 }
