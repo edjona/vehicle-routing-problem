@@ -4,18 +4,25 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import model.Demand;
 import model.Distance;
-import repository.DemandRepository;
 import repository.DistanceRepository;
 
-import java.sql.Date;
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InitiatePopulation {
-    public static List<Demand> getDemandsByDate(String dateString) {
-        return DemandRepository.getDemandsByDate(Date.valueOf(dateString));
+    public static int[] activeCustomer(List<Demand> demandList) {
+        var customerIds = new int[demandList.size() + 1];
+
+        customerIds[0] = 0;
+        for (var index = 1; index < demandList.size(); index++) {
+            customerIds[index] = demandList.get(index).getCustomerId();
+        }
+
+        return customerIds;
     }
 
     public static List<List<Demand>> createDemandPopulations(List<Demand> demandList, int population) {
@@ -30,31 +37,20 @@ public class InitiatePopulation {
         return demandPopulations;
     }
 
-    public static double countTotalDistance(List<Demand> demands) {
-        List<Distance> distances = DistanceRepository.getDistances();
-        double tempDistance = 0;
+    public static double[] activeDistanceBetweenCustomer(int[] customerIds, Connection connection) {
+        var ranges = new double[customerIds.length];
+        List<Distance> distances = DistanceRepository.getDistances(connection);
 
-        for (var index = 0; index < demands.size(); index++) {
-            Distance tempDist;
-
-            if (index == 0) {
-                tempDist = getSelectedDistance(distances, 0, demands.get(index).getCustomerId());
-            } else {
-                if (index == demands.size() - 1) {
-                    tempDist = getSelectedDistance(distances, demands.get(index).getCustomerId(), 0);
-                } else {
-                    int idFrom = demands.get(index).getCustomerId();
-                    int idTo = demands.get(index + 1).getCustomerId();
-                    tempDist = getSelectedDistance(distances, idFrom, idTo);
-                }
-            }
-
-            if (tempDist != null) {
-                tempDistance += tempDist.getKilometers();
-            }
+        for (var index = 1; index < customerIds.length; index++) {
+            var distance = getSelectedDistance(distances, customerIds[index - 1], customerIds[index]);
+            ranges[index] = distance != null ? distance.getKilometers() : 0L;
         }
 
-        return tempDistance;
+        return ranges;
+    }
+
+    public static double countTotalDistance(double[] rangeBetween) {
+        return Arrays.stream(rangeBetween).sum();
     }
 
     private static Distance getSelectedDistance(List<Distance> distances, int from, int to) {
