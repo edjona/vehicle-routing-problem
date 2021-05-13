@@ -12,9 +12,9 @@ import java.sql.SQLException;
 public class MyDatabase {
     public static Connection connect() throws SQLException {
         try {
-            var url = "jdbc:mysql://localhost/db_transportasi";
-            var user = "root";
-            var pass = "passw0rd";
+            var url = System.getenv("database_url");
+            var user = System.getenv("database_username");
+            var pass = System.getenv("database_password");
 
             Logger.systemInfo("Success login to database", "MySQL Database");
             return DriverManager.getConnection(url, user, pass);
