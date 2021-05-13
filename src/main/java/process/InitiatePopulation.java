@@ -19,7 +19,7 @@ public class InitiatePopulation {
 
         customerIds[0] = 0;
         for (var index = 1; index < demandList.size(); index++) {
-            customerIds[index] = demandList.get(index).getCustomerId();
+            customerIds[index] = demandList.get(index - 1).getCustomerId();
         }
 
         return customerIds;
