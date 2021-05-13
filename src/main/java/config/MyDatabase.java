@@ -16,8 +16,9 @@ public class MyDatabase {
             var user = System.getenv("database_username");
             var pass = System.getenv("database_password");
 
+            var connection = DriverManager.getConnection(url, user, pass);
             Logger.systemInfo("Success login to database", "MySQL Database");
-            return DriverManager.getConnection(url, user, pass);
+            return connection;
 
         } catch (SQLException exception) {
             Logger.systemInfo("Failed login to database", "MySQL Database");
