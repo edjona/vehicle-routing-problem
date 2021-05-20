@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
+import java.util.Timer;
 
 @SuppressWarnings({"squid:S106", "squid:S6212"})
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -84,5 +86,11 @@ public class Logger {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date resultDate = new Date(milliseconds);
         return dateFormat.format(resultDate);
+    }
+
+    private  static String calcTime(long hour){
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        Timer elapsedTime = new Timer(String.valueOf(hour));
+        return timeFormat.format(elapsedTime);
     }
 }
