@@ -3,7 +3,9 @@ package main;
 import config.Logger;
 import config.MyDatabase;
 import model.Demand;
+import model.Vehicle;
 import process.InitiatePopulation;
+import process.Selection;
 import repository.DemandRepository;
 
 import java.sql.SQLException;
@@ -51,6 +53,13 @@ public class Mainly {
             double[] rangeBetween = InitiatePopulation.activeDistanceBetweenCustomer(customerIds, connection);
             Logger.info("Range between IDs: " + Arrays.toString(rangeBetween));
             Logger.info("Total: " + InitiatePopulation.countTotalDistance(rangeBetween) + " KM");
+
+        });
+    }
+    private static void printSelection(java.sql.Connection connection, List<List<Vehicle>> individualFitness){
+        individualFitness.forEach(vehicles -> {
+            double [] fitnessSelectedCustomer = Selection.totalSelectedDistance(activeCustomerIds, connection);
+            Logger.info("Fitness:  " + Selection.sumTotalSelectedDistance(fitnessSelectedCustomer));
         });
     }
 }

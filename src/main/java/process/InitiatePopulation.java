@@ -55,7 +55,7 @@ public class InitiatePopulation {
 
     private static Distance getSelectedDistance(List<Distance> distances, int from, int to) {
         return distances.stream().filter(
-            distance -> distance.getFrom() == from && distance.getTo() == to).findFirst().orElse(null);
+                distance -> distance.getFrom() == from && distance.getTo() == to).findFirst().orElse(null);
     }
 
 }
