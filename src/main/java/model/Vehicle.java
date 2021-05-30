@@ -6,6 +6,7 @@ import lombok.Data;
 public class Vehicle {
     private int id;
     private String type;
+    private String vehicle_police_id;
     private int capacity;
-    private int availability;
+    private double kilos_fuel;
 }
