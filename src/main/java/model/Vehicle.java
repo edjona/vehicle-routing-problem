@@ -2,10 +2,13 @@ package model;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class Vehicle {
-    private int id;
-    private String type;
-    private int capacity;
-    private int availability;
+   private String policeNumber;
+   private int capacity;
+   private double costPerKilometer;
+   private List<Integer> routes = new ArrayList<>();
 }
