@@ -38,7 +38,7 @@ public class Mainly {
                 chromosome
                     .getVehicles()
                     .forEach(vehicle -> {
-                        System.out.println("Vehicle" + vehicle.getPoliceNumber());
+                        System.out.println("Vehicle " + vehicle.getPolice_number());
                         System.out.print("[");
                         for (Integer route : vehicle.getRoutes()) {
                             System.out.print(route + " ");
